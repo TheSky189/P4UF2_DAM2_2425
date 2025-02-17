@@ -33,7 +33,7 @@ class _HomePageState extends State<HomePage> {
     Navigator.pushReplacementNamed(context, '/login');
   }
 
-  final List<Map<String, String>> cities = const [
+  final List<Map<String, String>> cities = [
     {
       'name': 'Zúrich',
       'country': 'Suiza',
@@ -69,6 +69,12 @@ class _HomePageState extends State<HomePage> {
           'Ciudad de diseño escandinavo con inviernos nevados y saunas.'
     },
   ];
+
+//  void _deleteCity(String cityName) {
+//    setState(() {
+//      cities.removeWhere((city) => city['name'] == cityName);
+//    });
+//  }
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +118,15 @@ class _HomePageState extends State<HomePage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => CityDetailsPage(city: city),
+                      builder: (context) => CityDetailsPage(
+                        city: city,
+                        onDelete: () {
+                          setState(() {
+                            cities
+                                .removeWhere((c) => c['name'] == city['name']);
+                          });
+                        },
+                      ),
                     ),
                   );
                 },

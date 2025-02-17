@@ -19,7 +19,9 @@ class _LoginPageState extends State<LoginPage> {
 
     if (_usernameController.text.trim() == savedUser &&
         _passwordController.text == savedPass) {
-      Navigator.pushReplacementNamed(context, '/home');
+      await prefs.setBool('isLoggedIn', true); // Guardar estado sesion
+      Navigator.pushReplacementNamed(
+          context, '/home'); // evitar que vuelva a login
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Usuario o contraseña incorrectos')),
